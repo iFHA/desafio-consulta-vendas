@@ -3,6 +3,7 @@ package com.devsuperior.dsmeta.services;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.devsuperior.dsmeta.dto.SaleMinDTO;
 import com.devsuperior.dsmeta.dto.SaleReportDTO;
+import com.devsuperior.dsmeta.dto.SaleSummaryDTO;
 import com.devsuperior.dsmeta.entities.Sale;
 import com.devsuperior.dsmeta.repositories.SaleRepository;
 
@@ -31,6 +33,12 @@ public class SaleService {
 		LocalDate maxDate = getMaxDateFromString(strMaxDate);
 		LocalDate minDate = getMinDateFromStringAndMaxDate(strMinDate, maxDate);
 		return repository.searchSaleByPeriodAndSellerName(minDate, maxDate, sellerName, pageable);
+	}
+
+	public List<SaleSummaryDTO> getSaleSummaryBySeller(String strMinDate, String strMaxDate) {
+		LocalDate maxDate = getMaxDateFromString(strMaxDate);
+		LocalDate minDate = getMinDateFromStringAndMaxDate(strMinDate, maxDate);
+		return repository.getSaleSummaryBySeller(minDate, maxDate);
 	}
 
 	private LocalDate getMaxDateFromString(String strMaxDate) {
